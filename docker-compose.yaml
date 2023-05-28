@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  app: #the name of the service that will run our Dockerfile
+    build:
+      context: .  #we wanna build the Dockerfile inside our current directory
+      args:
+        - DEV=true #using only for DEVELOPMENT part --> build an argument DEV and set it True
+    ports:
+      - "8000:8000" #maps our local port 8000 to port 8000 inside our Docker container
+    volumes:
+      - ./app:/app #map the /app directory that we created to /app inside our container
+    command: > #used to run the service 
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+      
