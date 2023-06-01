@@ -13,3 +13,31 @@ services:
     command: > #used to run the service 
       sh -c "python manage.py runserver 0.0.0.0:8000"
       
+    #this would tell our app HOW TO CONNECT to the DB
+    environment:
+      - DB_HOST=db
+      - DB_NAME=devdb
+      - DB_USER=devuser
+      - DB_PASS=changeme
+
+    #the app service depends on the DB service to start
+    depends_on:
+      - db
+
+  #start another service for DB (Postgres-SQL)
+  db:
+    #Postgres image from hub.docker.com
+    image: postgres:13-alpine
+    volumes:
+      - dev-db-data:/var/lib/postgresql/data
+    environment:
+    #just setting env variables to Postgres DB to create dev credentials for the
+    #local development
+      - POSTGRES_DB=devdb
+      - POSTGRES_USER=devuser
+      - POSTGRES_PASSWORD=changeme
+    
+    
+volumes:
+  dev-db-data:
+  
