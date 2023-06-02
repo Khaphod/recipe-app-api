@@ -11,7 +11,9 @@ services:
     volumes:
       - ./app:/app #map the /app directory that we created to /app inside our container
     command: > #used to run the service 
-      sh -c "python manage.py runserver 0.0.0.0:8000"
+      sh -c "python manage.py wait_for_db &&:
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
       
     #this would tell our app HOW TO CONNECT to the DB
     environment:
