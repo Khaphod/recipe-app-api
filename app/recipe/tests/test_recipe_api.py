@@ -255,10 +255,10 @@ class PrivateRecipeApiTests(TestCase):
         new_tag = Tag.objects.get(user=self.user, name='Lunch')
         self.assertIn(new_tag, recipe.tags.all())
 
-    def test_update_recipe_assing_tag(self):
-        """Test assigning an existing tag when updating ar ecipe."""
+    def test_update_recipe_assign_tag(self):
+        """Test assigning an existing tag when updating a ecipe."""
         tag_breakfast = Tag.objects.create(user=self.user, name='Breakfast')
-        recipe = create_user(user=self.user)
+        recipe = create_recipe(user=self.user)
         recipe.tags.add(tag_breakfast)
 
         tag_lunch = Tag.objects.create(user=self.user, name='Lunch')
